@@ -7,7 +7,7 @@ const CURRENT_TIME = 'videoplayer-current-time';
 player.on(
   'timeupdate',
   throttle(data => {
-    const time = data.seconds;
+    const time = Math.round(data.seconds);
     localStorage.setItem(CURRENT_TIME, time);
   }, 1000)
 );

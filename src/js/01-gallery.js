@@ -20,21 +20,11 @@ function createImageCard(galleryItems) {
     })
     .join('');
 }
-galleryRef.addEventListener('click', selectedCard);
 
-function selectedCard(e) {
-  e.preventDefault();
-  const isGalleryImg = e.target.classList.contains('gallery__image');
-  if (!isGalleryImg) {
-    // || if (e.target.nodeName !== "IMG")
-    return;
-  }
-
-  const lightbox = new SimpleLightbox('.gallery a', {
+const lightbox = new SimpleLightbox('.gallery a', {
     navText: ['<=', '=>'],
 
     captionsData: 'alt',
     captionPosition: 'top',
     captionDelay: 250,
   });
-}

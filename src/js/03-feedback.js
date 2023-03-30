@@ -5,13 +5,15 @@ const inputEl = document.querySelector('.feedback-form input');
 const btnEl = document.querySelector('.feedback-form button');
 btnEl.disabled = true;
 const feedback = {};
+
 const FEEDBACK_FORM = 'feedback-form-state';
 
 formEl.addEventListener('input', throttle(onFeedbackForm, 500));
 
 function onFeedbackForm(e) {
-  
-  feedback[e.target.name] = e.target.value;
+  feedback.email = inputEl.value;
+  feedback.message = textareaEl.value;
+
   localStorage.setItem(FEEDBACK_FORM, JSON.stringify(feedback));
   btnEl.disabled = false;
 }
@@ -25,13 +27,11 @@ function onSubmitForm(e) {
 
   if (inputEl.value === '' || textareaEl.value === '') {
     alert('not all fields are filled');
-  }
-  if (inputEl.value !== '' && textareaEl.value !== '') {
-    console.log(feedback);
-    e.currentTarget.reset();
+    return;
   }
 
-  
+  console.log(feedback);
+  e.currentTarget.reset();
   localStorage.removeItem(FEEDBACK_FORM);
   btnEl.disabled = true;
 }
@@ -40,8 +40,8 @@ function onlocalStorage() {
   const saveFeedback = localStorage.getItem(FEEDBACK_FORM);
 
   if (saveFeedback) {
-    const aaa = JSON.parse(saveFeedback);
-    inputEl.value = aaa.email;
-    textareaEl.value = aaa.message;
+    const feedbackValue = JSON.parse(saveFeedback);
+    inputEl.value = feedbackValue.email;
+    textareaEl.value = feedbackValue.message;
   }
 }
